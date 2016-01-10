@@ -1,0 +1,6 @@
+#!/usr/bin/env dc
+[SN SR lR lN  ^]se                        # exponentiate R^N and put R back on top of the stack
+[c100 1 / pcq]so                          # pigeonhole principle with more elements than buckets -> 100% probability of a dup
+[r / 1 r - 100 *pcq]sq                    # handle the normal return case and convert to percentage
+[lN lR =q lN * LN 1+ SN lgx]sg            # loop over R - N + 1 elements multiplying to build our numerator
+[6k lex lN lR <o lR lN - 1+ sN lR lgx]sf  # handle the pigeonhole case and then setup the iteration

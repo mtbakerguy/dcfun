@@ -1,0 +1,104 @@
+#!/usr/bin/env dc
+#
+# tiny test helper
+[n[ answer(]ndn[):  ]nx]sh
+
+# factorial macro (register 'f')
+#
+# register 'b' is the cleanup for the factorial(1) case that the macro
+# handles incorrectly (leaves a 0 on the stack)
+# pre-condition always call with a non-zero positive integer 
+# stack effect: (int -> int)
+# call:  number lfx
+#
+[1+]sb
+[[d1-d1<f*]xd0=b]sf
+# testcases for factorial (AKA register 'f')
+[lfx] 12 [Factorial] lhxrxpc
+[lfx] 22 [Factorial] lhxrxpc
+[lfx] 1 [Factorial] lhxrxpc
+
+# e macro (register 'e')
+#
+# use a Taylor series to calculate e raised to power of n
+#
+# pseudocode:
+#    res=1
+#    for(i=1;i<1000;i++)
+#        res = res + ((number^i)/factorial(i))
+# stack effect: (number -> e^number)
+# simple loop: [d1000=d 1+ lex]sl
+# stack effect: (number -> number)
+# call: number lex
+[q]sd
+[d500=ddlEr^ SX d lfx LX r / LR + SR 1+ lux]su
+[4k 1 SR SE 1 luxc LR]se
+# testcases for exp (AKA register 'e')
+[lex] 10 [Exp] lhxrxpc
+[lex] 15 [Exp] lhxrxpc
+[lex] 20 [Exp] lhxrxpc
+[lex] 200 [Exp] lhxrxpc
+[lex] 2000 [Exp] lhxrxpc
+[lex] 20000 [Exp] lhxrxpc
+
+# natural logarithm macro (register 'l')
+#
+# use a Taylor series to calculate the natural log of N
+# DO NOT USE:  converges terribly -- use the second one below!
+#
+# pseudocode:
+#    res=0
+#    fraction=(number-1)/number
+#    for(i=1;i<200;i++)
+#        res = res + (1/i)*(fraction^i)
+# stack effect: (number -> number)
+# call: number llx
+[d400=d  dd lF r ^ r 1 r / * lR + SR 1+ lwx]sw
+[8k 0 SR d 1 - r / SF 1 lwx 0* + LR]sl
+# testcases for log (AKA register 'l')
+[llx] 20000 [Log] lhxrxpc
+[llx] 2000 [Log] lhxrxpc
+[llx] 200 [Log] lhxrxpc
+[llx] 20 [Log] lhxrxpc
+[llx] 2 [Log] lhxrxpc
+[llx] 1 [Log] lhxrxpc
+[llx] 1.5 [Log] lhxrxpc
+[llx] 5217276 [Log] lhxrxpc
+# natural logarithm macro2 (register 'n')
+#
+# use Arithmetic-geometric mean approximation to calculate the natural log of N
+#
+# pseudocode:
+#    lntwo=log(2)  # 0.6931471805599453
+#    pi=3.141592653589793
+#    m = 12
+#    a = 1
+#    b = 2^(2-m)/number
+#    count = 0
+#    while count != 50
+#        count++
+#        amean = (a+b)/2
+#        gmean = sqrt(a*b)
+#        a = amean
+#        b = gmean
+#    res = pi/(2*b) - (m * lntwo)   # b is arbitrarily chosen; a works as well
+# stack effect: (number -> number)
+# call: number lnx
+0.6931471805599453sL
+3.141592653589793sP
+12sM
+# handle the final calculation
+[lP 2 lB * / lM lL * - r 0 * + q]st
+# recurse through and calculate arithmetic mean for a and geometric mean for b
+[d50=t lB lA + 2 / lB lA * v sB sA 1+ lyx]sy
+# setup the computation with initial values for a and b
+[15k 2 2 lM - ^ r / sB 1 sA 1 lyx]sn
+# testcases for log2 (AKA register 'n')
+[lnx] 20000 [Log2] lhxrxpc
+[lnx] 2000 [Log2] lhxrxpc
+[lnx] 200 [Log2] lhxrxpc
+[lnx] 20 [Log2] lhxrxpc
+[lnx] 2 [Log2] lhxrxpc
+[lnx] 1 [Log2] lhxrxpc
+[lnx] 1.5 [Log2] lhxrxpc
+[lnx] 5217276 [Log2] lhxrxpc

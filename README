@@ -1,0 +1,17 @@
+This directory contains a couple of small scripts that show how to do 
+algorithms with recursive 'dc' macros.  The scripts are listed below.
+
+  o exp.dc - bit of code that can compute logarithms and fractional exponents
+  o birthday.dc - compute the 'birthday paradox' probability for two numbers.
+                  Call the script for the Wikipedia example in the following
+                  manner: dc -f birthday.dc -e'365 23 lfx'
+                  Result:  50.729800
+
+Advice for people scripting 'dc':
+    o don't fight using registers in some ideological effort to only use the
+      stack.  You are not using Forth.
+    o liberally sprinkle 'f' into your code to inspect the stack.
+    o the code will be short but your comments probably shouldn't be.
+    o test your snippets of code in tiny pieces and assemble the script
+      incrementally.
+    o it's addicting and feels vaguely like fun instead of work.  
