@@ -6,7 +6,10 @@ algorithms with recursive 'dc' macros.  The scripts are listed below.
                   Call the script for the Wikipedia example in the following
                   manner: dc -f birthday.dc -e'365 23 lfx'
                   Result:  50.729800
-
+  o sum.dc - compute the sum for i=1 -> of 1/i.
+             Call the script in the following way: dc -f sum.dc -e'1000 lsx p'
+             Result:  9.3668
+      
 Advice for people scripting 'dc':
     o don't fight using registers in some ideological effort to only use the
       stack.  You are not using Forth.

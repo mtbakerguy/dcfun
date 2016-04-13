@@ -1,0 +1,15 @@
+#!/usr/bin/env dc
+#
+# tiny test helper
+[n[ answer(]ndn[):  ]nx]sh
+
+#
+#  calculate the sum from i=1 -> N of 1/i
+#  pre-condition:  always call with a non-zero positive integer
+#  stack effect:  (integer -> real)
+#  call: number lsx
+[1 li / +]sb
+[lbx q]sq
+[lr ln li=q lbx sr li 1 + si lcx]sc
+[16k sn 1 si 0 sr lcx]ss
+
