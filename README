@@ -9,6 +9,13 @@ algorithms with recursive 'dc' macros.  The scripts are listed below.
   o sum.dc - compute the sum for i=1 -> of 1/i.
              Call the script in the following way: dc -f sum.dc -e'1000 lsx p'
              Result:  9.3668
+
+  o simple model for estimating the cost of a release
+           Call the script in the following way:
+              dc -f releasecost.dc -e'numemployees_in_org percentage_of_employees_on_other_projects percentage_of_time_remaining_employees_spend_on_other_commitments periodic_budget number_of_periods'
+           Result:  a dollar amount
+           
+               
       
 Advice for people scripting 'dc':
     o don't fight using registers in some ideological effort to only use the

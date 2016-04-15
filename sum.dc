@@ -8,8 +8,8 @@
 #  pre-condition:  always call with a non-zero positive integer
 #  stack effect:  (integer -> real)
 #  call: number lsx
-[1 li / +]sb
+[lr 1 li / +]sb
 [lbx q]sq
-[lr ln li=q lbx sr li 1 + si lcx]sc
-[16k sn 1 si 0 sr lcx]ss
+[ln li=q lbx sr Li 1 + si f lc f x]sc
+[16k Sn 1 Si 0 Sr lcx]ss
 

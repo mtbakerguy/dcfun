@@ -1,0 +1,9 @@
+# printout a $$$ amount for a release based on the following variables
+# Parameters:
+#     numberofemployeesinpd(integer) 
+#     nontmosdiscount(percentage) -- converted
+#     otherprojectdiscount(percentage) -- converted
+#     quarterlybudget($$$)
+#     numberofquarters(real) -- length of project
+[100/1r-]sp
+[4k * sb lpx r lpx * r sr lr * lr / lb * 1k 1000000 /n[M$]p]sc
